@@ -125,7 +125,7 @@ async def clanlist(ctx):
 	color = discord.Color(value=0x00ff00)
 	em = discord.Embed(color=color, title='Clan List')
 	em.description = 'This is a list of clans currently registered in HWCWL. \nOne field is ONE team, and underneath it are the clans that are part of it.'
-	em.add_field(name='Savage Core', value='SHIELD (#CUQGLURJ) \nGhost Rider (#QYOCQ9RU) \nHindustan (#8L9QYQCR) \nMAHABHARAT (#P2GUJCQY)')
+	em.add_field(name='Savage Core', value='SHIELD (#CUQGLURJ) \nGhost Rider (#QYOCQ9RU) \nHindustan (#8L9QYQCR) \nMAHABHARAT (#P2GUJCQY) \nZampui clashers (#2PYP9CRP)')
 	em.add_field(name="Ice Avengers", value='expnedabls (#PY0UYQP) \nIndia (#89Q8UQ88)')
 	em.set_thumbnail(url='https://media.discordapp.net/attachments/409395139019276288/409706582364913677/HWCWL_LOGO_MAIN.png?width=676&height=676')
 	await ctx.send(embed=em)
@@ -136,9 +136,6 @@ async def claninfo(ctx, clan=None):
 	if clan is None:
 		await ctx.send("Oops! Be sure to enter a clan's name to look up info for it.")
 	else:
-		with open('apikeys.json') as f:
-            lol = json.load(f)
-            client = lol.get("cocapi")
 		if clan.lower() == 'shield':
 			async with aiohttp.ClientSession() as session:
 				async with session.get(f'https://api.clashofclans.com/v1/clans/%23CUQGLURJ', headers=client) as respclan:
@@ -162,6 +159,195 @@ async def claninfo(ctx, clan=None):
 						warlog = 'Private'
 					em.add_field(name='War Log', value=warlog)
 					em.set_author(name=f"{clan.get('name', '[Unknown Name]')} ({clan.get('tag', '[Unknown Tag]')})")
+					em.set_thumbnail(url=clan['badgeUrls']['medium'])
+					await ctx.send(embed=em)
+		if clan.lower() == 'ghost rider':
+			async with aiohttp.ClientSession() as session:
+				async with session.get(f'https://api.clashofclans.com/v1/clans/%23QYOCQ9RU', headers=client) as respclan:
+					clan = await respclan.json()
+					color = discord.Color(value=0xe5f442)
+					em = discord.Embed(color=color, title='Clan Info')
+					em.add_field(name='Location', value=clan.get('location', {}).get('name'))
+					em.add_field(name='Clan Level', value=clan.get('clanLevel', 0))
+					em.add_field(name='Clan Points - Home Base', value=clan.get('clanPoints', 0))
+					em.add_field(name='Clan Points - Builder Base', value=clan.get('clanVersusPoints', 0))
+					em.add_field(name='Members', value=f'{clan.get('members')}/50')
+					em.add_field(name='Required Trophies', value=clan.get('requiredTrophies', 0))
+					em.add_field(name='War Frequency', value=clan.get('warFrequency', 0))
+					em.add_field(name='War Win Streak', value=clan.get('warWinStreak', 0))
+					em.add_field(name='War Wins', value=clan.get('warWins', 0))
+					em.add_field(name='War Draws', value=clan.get('warTies', 0))
+					em.add_field(name='War Losses', value=clan.get('warLosses', 0))
+					if clan['isWarLogPublic'] is True:
+						warlog = 'Public'
+					else:
+						warlog = 'Private'
+					em.add_field(name='War Log', value=warlog)
+					em.set_author(name=f"{clan.get('name', '[Unknown Name]')} ({clan.get('tag', '[Unknown Tag]')})")
+					em.set_thumbnail(url=clan['badgeUrls']['medium'])
+					await ctx.send(embed=em)
+		if clan.lower() == 'hindustan':
+			async with aiohttp.ClientSession() as session:
+				async with session.get(f'https://api.clashofclans.com/v1/clans/%238L9QYQCR', headers=client) as respclan:
+					clan = await respclan.json()
+					color = discord.Color(value=0xe5f442)
+					em = discord.Embed(color=color, title='Clan Info')
+					em.add_field(name='Location', value=clan.get('location', {}).get('name'))
+					em.add_field(name='Clan Level', value=clan.get('clanLevel', 0))
+					em.add_field(name='Clan Points - Home Base', value=clan.get('clanPoints', 0))
+					em.add_field(name='Clan Points - Builder Base', value=clan.get('clanVersusPoints', 0))
+					em.add_field(name='Members', value=f'{clan.get('members')}/50')
+					em.add_field(name='Required Trophies', value=clan.get('requiredTrophies', 0))
+					em.add_field(name='War Frequency', value=clan.get('warFrequency', 0))
+					em.add_field(name='War Win Streak', value=clan.get('warWinStreak', 0))
+					em.add_field(name='War Wins', value=clan.get('warWins', 0))
+					em.add_field(name='War Draws', value=clan.get('warTies', 0))
+					em.add_field(name='War Losses', value=clan.get('warLosses', 0))
+					if clan['isWarLogPublic'] is True:
+						warlog = 'Public'
+					else:
+						warlog = 'Private'
+					em.add_field(name='War Log', value=warlog)
+					em.set_author(name=f"{clan.get('name', '[Unknown Name]')} ({clan.get('tag', '[Unknown Tag]')})")
+					em.set_thumbnail(url=clan['badgeUrls']['medium'])
+					await ctx.send(embed=em)
+		if clan.lower() == 'mahabharat':
+			async with aiohttp.ClientSession() as session:
+				async with session.get(f'https://api.clashofclans.com/v1/clans/%23P2GUJCQY', headers=client) as respclan:
+					clan = await respclan.json()
+					color = discord.Color(value=0xe5f442)
+					em = discord.Embed(color=color, title='Clan Info')
+					em.add_field(name='Location', value=clan.get('location', {}).get('name'))
+					em.add_field(name='Clan Level', value=clan.get('clanLevel', 0))
+					em.add_field(name='Clan Points - Home Base', value=clan.get('clanPoints', 0))
+					em.add_field(name='Clan Points - Builder Base', value=clan.get('clanVersusPoints', 0))
+					em.add_field(name='Members', value=f'{clan.get('members')}/50')
+					em.add_field(name='Required Trophies', value=clan.get('requiredTrophies', 0))
+					em.add_field(name='War Frequency', value=clan.get('warFrequency', 0))
+					em.add_field(name='War Win Streak', value=clan.get('warWinStreak', 0))
+					em.add_field(name='War Wins', value=clan.get('warWins', 0))
+					em.add_field(name='War Draws', value=clan.get('warTies', 0))
+					em.add_field(name='War Losses', value=clan.get('warLosses', 0))
+					if clan['isWarLogPublic'] is True:
+						warlog = 'Public'
+					else:
+						warlog = 'Private'
+					em.add_field(name='War Log', value=warlog)
+					em.set_author(name=f"{clan.get('name', '[Unknown Name]')} ({clan.get('tag', '[Unknown Tag]')})")
+					em.set_thumbnail(url=clan['badgeUrls']['medium'])
+					await ctx.send(embed=em)
+		if clan.lower() == 'expnedabls':
+			async with aiohttp.ClientSession() as session:
+				async with session.get(f'https://api.clashofclans.com/v1/clans/%23PY0UYQP', headers=client) as respclan:
+					clan = await respclan.json()
+					color = discord.Color(value=0xe5f442)
+					em = discord.Embed(color=color, title='Clan Info')
+					em.add_field(name='Location', value=clan.get('location', {}).get('name'))
+					em.add_field(name='Clan Level', value=clan.get('clanLevel', 0))
+					em.add_field(name='Clan Points - Home Base', value=clan.get('clanPoints', 0))
+					em.add_field(name='Clan Points - Builder Base', value=clan.get('clanVersusPoints', 0))
+					em.add_field(name='Members', value=f'{clan.get('members')}/50')
+					em.add_field(name='Required Trophies', value=clan.get('requiredTrophies', 0))
+					em.add_field(name='War Frequency', value=clan.get('warFrequency', 0))
+					em.add_field(name='War Win Streak', value=clan.get('warWinStreak', 0))
+					em.add_field(name='War Wins', value=clan.get('warWins', 0))
+					em.add_field(name='War Draws', value=clan.get('warTies', 0))
+					em.add_field(name='War Losses', value=clan.get('warLosses', 0))
+					if clan['isWarLogPublic'] is True:
+						warlog = 'Public'
+					else:
+						warlog = 'Private'
+					em.add_field(name='War Log', value=warlog)
+					em.set_author(name=f"{clan.get('name', '[Unknown Name]')} ({clan.get('tag', '[Unknown Tag]')})")
+					em.set_thumbnail(url=clan['badgeUrls']['medium'])
+					await ctx.send(embed=em)
+		if clan.lower() == 'india':
+			async with aiohttp.ClientSession() as session:
+				async with session.get(f'https://api.clashofclans.com/v1/clans/%2389Q8UQ88', headers=client) as respclan:
+					clan = await respclan.json()
+					color = discord.Color(value=0xe5f442)
+					em = discord.Embed(color=color, title='Clan Info')
+					em.add_field(name='Location', value=clan.get('location', {}).get('name'))
+					em.add_field(name='Clan Level', value=clan.get('clanLevel', 0))
+					em.add_field(name='Clan Points - Home Base', value=clan.get('clanPoints', 0))
+					em.add_field(name='Clan Points - Builder Base', value=clan.get('clanVersusPoints', 0))
+					em.add_field(name='Members', value=f'{clan.get('members')}/50')
+					em.add_field(name='Required Trophies', value=clan.get('requiredTrophies', 0))
+					em.add_field(name='War Frequency', value=clan.get('warFrequency', 0))
+					em.add_field(name='War Win Streak', value=clan.get('warWinStreak', 0))
+					em.add_field(name='War Wins', value=clan.get('warWins', 0))
+					em.add_field(name='War Draws', value=clan.get('warTies', 0))
+					em.add_field(name='War Losses', value=clan.get('warLosses', 0))
+					if clan['isWarLogPublic'] is True:
+						warlog = 'Public'
+					else:
+						warlog = 'Private'
+					em.add_field(name='War Log', value=warlog)
+					em.set_author(name=f"{clan.get('name', '[Unknown Name]')} ({clan.get('tag', '[Unknown Tag]')})")
+					em.set_thumbnail(url=clan['badgeUrls']['medium'])
+					await ctx.send(embed=em)
+		if clan.lower() == 'zampui clashers':
+			async with aiohttp.ClientSession() as session:
+				async with session.get(f'https://api.clashofclans.com/v1/clans/%232PYP9CRP', headers=client) as respclan:
+					clan = await respclan.json()
+					color = discord.Color(value=0xe5f442)
+					em = discord.Embed(color=color, title='Clan Info')
+					em.add_field(name='Location', value=clan.get('location', {}).get('name'))
+					em.add_field(name='Clan Level', value=clan.get('clanLevel', 0))
+					em.add_field(name='Clan Points - Home Base', value=clan.get('clanPoints', 0))
+					em.add_field(name='Clan Points - Builder Base', value=clan.get('clanVersusPoints', 0))
+					em.add_field(name='Members', value=f'{clan.get('members')}/50')
+					em.add_field(name='Required Trophies', value=clan.get('requiredTrophies', 0))
+					em.add_field(name='War Frequency', value=clan.get('warFrequency', 0))
+					em.add_field(name='War Win Streak', value=clan.get('warWinStreak', 0))
+					em.add_field(name='War Wins', value=clan.get('warWins', 0))
+					em.add_field(name='War Draws', value=clan.get('warTies', 0))
+					em.add_field(name='War Losses', value=clan.get('warLosses', 0))
+					if clan['isWarLogPublic'] is True:
+						warlog = 'Public'
+					else:
+						warlog = 'Private'
+					em.add_field(name='War Log', value=warlog)
+					em.set_author(name=f"{clan.get('name', '[Unknown Name]')} ({clan.get('tag', '[Unknown Tag]')})")
+					em.set_thumbnail(url=clan['badgeUrls']['medium'])
+					await ctx.send(embed=em)
+		else:
+			await ctx.send("Clan not found. Use `?clanlist` to see a list of clans currently added to the bot.")
+
+
+
+@bot.command()
+async def warinfo(ctx, *, clan=None):
+	if clan is None:
+		await ctx.send("Oops! Please enter a clan name to access the war info for it.")
+	else:
+		if clan.lower() == 'shield':
+			async with aiohttp.ClientSession() as session:
+				async with session.get(f'https://api.clashofclans.com/v1/clans/%23CUQGLURJ/currentwar', headers=client) as respclan:
+					clan = await respclan.json()
+					color = discord.Color(value=0xe5f442)
+					em = discord.Embed(color=color, title='War Info')
+					if clan['state'] == 'inWar':
+						warstate = 'In War'
+					else:
+						warstate = 'Not In War'
+					em.add_field(name='Status', value=warstate)
+					em.add_field(name='War Size', value=f'{clan['teamSize']} vs {clan['teamSize']}')
+					em.add_field(name='Clan Points - Home Base', value=clan.get('clanPoints', 0))
+					em.add_field(name='Clan Points - Builder Base', value=clan.get('clanVersusPoints', 0))
+					em.add_field(name='Members', value=f'{clan.get('members')}/50')
+					em.add_field(name='Required Trophies', value=clan.get('requiredTrophies', 0))
+					em.add_field(name='War Frequency', value=clan.get('warFrequency', 0))
+					em.add_field(name='War Win Streak', value=clan.get('warWinStreak', 0))
+					em.add_field(name='War Wins', value=clan.get('warWins', 0))
+					em.add_field(name='War Draws', value=clan.get('warTies', 0))
+					em.add_field(name='War Losses', value=clan.get('warLosses', 0))
+					if clan['isWarLogPublic'] is True:
+						warlog = 'Public'
+					else:
+						warlog = 'Private'
+					em.add_field(name='War Log', value=warlog)
+					em.set_author(name=f"{clan['name']}({clan['tag']}) vs {opponent['name']} ({opponent['tag']})")
 					em.set_thumbnail(url=clan['badgeUrls']['medium'])
 					await ctx.send(embed=em)
 		if clan.lower() == 'ghost rider':
